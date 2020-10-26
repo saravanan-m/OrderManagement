@@ -1,6 +1,7 @@
 package com.order.management.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -11,15 +12,14 @@ import java.util.Set;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DockDto {
+public class PODto {
 
     private Long id;
 
-    @NotBlank(message = "Dock name cant be null")
-    private String name;
+    @JsonProperty(value = "item_id")
+    @Range(min = 1, message = "item id cant be null")
+    private int itemId;
 
-    @Range(min = 1, message = "Dock capacity cant be null")
-    private int capacity;
-
-    private Set<ActiveDockDto> activeDocks;
+    @Range(min = 1, message = "quantity cant be null")
+    private int quantity;
 }

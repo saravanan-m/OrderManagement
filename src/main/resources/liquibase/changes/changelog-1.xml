@@ -51,6 +51,46 @@
             </column>
         </createTable>
 
+        <createTable tableName="purchase_order">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="item_id" type="BIGINT"/>
+
+            <column name="quantity" type="BIGINT"/>
+
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="dock_po">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="active_dock_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_active_dock_id"
+                             references="active_dock(id)"/>
+            </column>
+
+            <column name="po_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_po_id"
+                             references="purchase_order(id)"/>
+            </column>
+
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
     </changeSet>
 
 </databaseChangeLog>

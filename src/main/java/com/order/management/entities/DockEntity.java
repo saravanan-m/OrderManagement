@@ -1,9 +1,11 @@
 package com.order.management.entities;
 
+import com.order.management.dtos.ActiveDockDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "dock")
@@ -20,4 +22,7 @@ public class DockEntity extends AuditEntity {
 
     @Column(name = "capacity")
     private int capacity;
+
+    @OneToMany(mappedBy="dockEntity")
+    private Set<ActiveDockEntity> activeDocks;
 }

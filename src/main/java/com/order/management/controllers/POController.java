@@ -2,7 +2,9 @@ package com.order.management.controllers;
 
 import com.order.management.dtos.ActiveDockDto;
 import com.order.management.dtos.DockDto;
+import com.order.management.dtos.PODto;
 import com.order.management.services.DockService;
+import com.order.management.services.POService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,31 +17,23 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/dock")
-public class DockController {
+@RequestMapping(value = "/api/v1/po")
+public class POController {
 
     @Autowired
-    DockService dockService;
+    POService poService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<DockDto> addDock(@Validated @RequestBody DockDto dockDto) {
-        return new ResponseEntity<>(dockService.addDock(dockDto), HttpStatus.OK);
+    public ResponseEntity<PODto> addDock(@Validated @RequestBody PODto poDto) {
+        return new ResponseEntity<>(poService.addPO(poDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get-all", method = RequestMethod.GET)
-    public ResponseEntity<List<DockDto>> getDocks(@RequestParam("date") String date) {
-        String parsedDate = null;
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date lDate = dateFormat.parse(date);
-            parsedDate = dateFormat.format(lDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(parsedDate == null ? dockService.getDocks() : dockService.getActiveDocks(parsedDate), HttpStatus.OK);
+    public ResponseEntity<List<PODto>> getDocks() {
+        return new ResponseEntity<>(poService.getPOs(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/activate-dock", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/activate-dock", method = RequestMethod.POST)
     public ResponseEntity<ActiveDockDto> addDock(@Validated @RequestBody ActiveDockDto activeDockDto) {
 
         activeDockDto = dockService.activateDock(activeDockDto);
@@ -47,5 +41,5 @@ public class DockController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "dock not available or conflicting time slot");
         }
         return new ResponseEntity<>(activeDockDto, HttpStatus.OK);
-    }
+    }*/
 }

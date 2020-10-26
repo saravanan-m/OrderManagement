@@ -4,22 +4,28 @@ import com.order.management.dtos.ActiveDockDto;
 import com.order.management.dtos.DockDto;
 import com.order.management.entities.ActiveDockEntity;
 import com.order.management.entities.DockEntity;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 @Mapper
 public abstract class ActiveDockMapper {
-    ActiveDockMapper INSTANCE = Mappers.getMapper(ActiveDockMapper.class);
+    public static ActiveDockMapper INSTANCE = Mappers.getMapper(ActiveDockMapper.class);
 
-    abstract ActiveDockEntity toEntity(ActiveDockDto activeDockDto);
+    public abstract ActiveDockEntity toEntity(ActiveDockDto activeDockDto);
 
-    abstract ActiveDockDto toDto(ActiveDockEntity activeDockEntity);
+    @Mappings({
+            @Mapping(source = "dockEntity.id", target = "dockId")
+    })
+    public abstract ActiveDockDto toDto(ActiveDockEntity activeDockEntity);
 
     @AfterMapping
-    public void dtoToEntity(@MappingTarget ActiveDockEntity entity,ActiveDockDto dto){
+    public void dtoToEntity(@MappingTarget ActiveDockEntity entity, ActiveDockDto dto) {
 
     }
 }
