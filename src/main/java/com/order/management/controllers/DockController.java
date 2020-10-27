@@ -27,7 +27,7 @@ public class DockController {
     }
 
     @RequestMapping(value = "/get-all", method = RequestMethod.GET)
-    public ResponseEntity<List<DockDto>> getDocks(@RequestParam("date") String date) {
+    public ResponseEntity<List<DockDto>> getDocks(@RequestParam(value = "date" ,required = false) String date) {
         String parsedDate = null;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -6,16 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SchedulePODto {
-
-    @NotBlank(message = "date can't be empty")
-    private String date;
-
+public class ResponseScheduleDto {
     @JsonProperty(value = "po")
-    private List<PODto> poDtos;
+    private PODto poDto;
+
+    @JsonProperty(value = "scheduled_dock")
+    private List<ActiveSlimDockDto> activeDockDtos = new ArrayList<>();
 }
